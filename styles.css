@@ -1,0 +1,71 @@
+.title {
+    color: red;
+}
+
+.bars{
+    display: flex;
+    flex-direction: row;
+}
+.monday{
+    background-color: cadetblue;
+    height: 100px;
+    width: 30px;
+    margin: 10px;
+}
+.monday.blue {
+    background-color: blue;
+}
+.thrusday{
+    background-color: cadetblue;
+    height: 100px;
+    width: 30px;
+    margin: 10px;
+}
+.thrusday.blue {
+    background-color: blue;
+}
+.wednesday{
+    background-color: cadetblue;
+    height: 100px;
+    width: 30px;
+    margin: 10px;
+}
+.wednesday.blue {
+    background-color: blue;
+}
+.tuesday{
+    background-color: cadetblue;
+    height: 100px;
+    width: 30px;
+    margin: 10px;
+}
+.tuesday.blue {
+    background-color: blue;
+}
+.friday{
+    background-color: cadetblue;
+    height: 100px;
+    width: 30px;
+    margin: 10px;
+}
+.friday.blue {
+    background-color: blue;
+}
+.saturday{
+    background-color: cadetblue;
+    height: 100px;
+    width: 30px;
+    margin: 10px;
+}
+.saturday.blue {
+    background-color: blue;
+}
+.sunday{
+    background-color: cadetblue;
+    height: 100px;
+    width: 30px;
+    margin: 10px;
+}
+.sunday.blue {
+    background-color: blue;
+}
