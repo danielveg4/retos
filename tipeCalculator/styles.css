@@ -1,0 +1,28 @@
+.body {
+    background-color: aliceblue;
+}
+
+.title {
+    font-size: 2rem;
+    color: cadetblue;
+    letter-spacing: 1rem;
+}
+.card_container{
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    gap: 2rem;
+    border-radius: 10px;
+}
+.white_card{
+    width: 200px;
+    padding: 1rem;
+}
+
+.dark_card{
+    background-color: cadetblue;
+    width: 200px;
+    border-radius: 10px;
+    padding: 1rem;
+}
