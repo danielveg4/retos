@@ -11,11 +11,19 @@ let totalPerPersonImport = '';
 
 const isChecked = () => {
     const allCheckbox = buttonTipsContainerElement.children;
-    for (let i = 0; i < allCheckbox.length; i++) {
+    let checkboxCount = 0;
+    for (let i = 0; i < allCheckbox.length -1; i++) {
         if (allCheckbox[i].checked == true) {
-            console.log(`checkbox marcado: ${i} con un valor de ${allCheckbox[i].value}`);
+            checkboxCount++;
             tipSelected = allCheckbox[i].value;
         }
+    }
+    if (checkboxCount > 1) {
+        console.log('seleccionada más de una opcion!');
+        return;
+    }
+    if (allCheckbox[allCheckbox.length - 1].value !== '') {
+        tipSelected = allCheckbox[allCheckbox.length - 1].value / 100;
     }
     tipOperation();
 }
@@ -25,29 +33,17 @@ const tipOperation = () => {
     const totalUsers = numberUsersInputElement.value;
     const tipImport = (totalBill * tipSelected);
     tipPerPersonImport = (tipImport / totalUsers);
-    totalPerPersonImport = (totalBill / totalUsers) + tipPerPersonImport;
-    console.log(tipPerPersonImport, totalPerPersonImport);
-
+    totalPerPersonImport = ((totalBill / totalUsers) + tipPerPersonImport);
+  
     printAmounts()
 }
 
 const printAmounts = () => {
-    resultTipPersonElement.textContent = `€${tipPerPersonImport}`;
-    resultTotalPersonElement.textContent = `€${totalPerPersonImport}`
+    resultTipPersonElement.textContent = `€${tipPerPersonImport.toFixed(2)}`;
+    resultTotalPersonElement.textContent = `€${totalPerPersonImport.toFixed(2)}`
 }
 
 
 formElement.addEventListener('change', () => {
     isChecked();
 })
-
-
-
-
-/* operación matemática:
-
-TOTAL: 
-
-amountUsers - (amountUsers * discountSelected)
-
-*/
