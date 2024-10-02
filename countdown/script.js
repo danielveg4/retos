@@ -41,7 +41,6 @@ class countdownTimer {
         this.onUpdate(this)
     }
 
-    // funcion
 
     startCountdown() {
         this.interval = setInterval(() => this.countdown(), 1000)
