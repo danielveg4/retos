@@ -4,21 +4,17 @@ const sumElement = document.getElementById('sum');
 const restaElement = document.getElementById('resta');
 const multiplicationElement = document.getElementById('mult');
 const divisionElement = document.getElementById('div');
-const resetElement = document.getElementById('reset');
 const equalElement = document.getElementById('equal');
-const calcElement = document.getElementById('calc');
-
-let result = 0;
 
 let firstNumber = null; 
 let secondNumber = null; 
 let operation = null;
 
 const operaciones = {
-    sum: (a, b) => a + b,    
-    resta: (a, b) => a - b,   
-    mult: (a, b) => a * b,    
-    div: (a, b) => a / b  
+    sum: (a, b) => a + b,
+    resta: (a, b) => a - b,
+    mult: (a, b) => a * b,
+    div: (a, b) => b !== 0 ? a / b : 'Error: División por cero'
 }
 
 const printNumbersCalc = () => {
@@ -29,38 +25,42 @@ const printNumbersCalc = () => {
         newNumberTecla.value = `${i}`;
         newNumberTecla.addEventListener('click', () => selectNumber(i));
         fragment.append(newNumberTecla);
-
     }
-    numbersElement.append(fragment)
+    numbersElement.append(fragment);
 }
 
 const selectNumber = (num) => {
     if (firstNumber === null) {
-        firstNumber = num; 
+        firstNumber = num;
         console.log(`primer número: ${firstNumber}`);
     } else if (secondNumber === null) {
-        secondNumber = num; 
+        secondNumber = num;
         console.log(`segundo número: ${secondNumber}`);
     }
 };
 
 const printResult = (result) => {
-    resultElement.textContent = result; 
-    console.log(`resultado de la suma: ${result}`);
+    resultElement.textContent = result;
+    console.log(`resultado: ${result}`);
 };
 
-sumElement.addEventListener('click', () => {
-    operation = 'sum';
-    console.log(`operación: ${operation}`);
+const operationButtons = [sumElement, restaElement, multiplicationElement, divisionElement];
+
+operationButtons.forEach((button, index) => {
+    button.addEventListener('click', () => {
+        const operationsKeys = ['sum', 'resta', 'mult', 'div'];
+        operation = operationsKeys[index];
+        console.log(`operación: ${operation}`);
+    });
 });
 
 equalElement.addEventListener('click', () => {
-    if (firstNumber !== null && secondNumber !== null && operation === 'sum') {
-        const sumResult = operaciones.sum(firstNumber, secondNumber);
-        printResult(sumResult);
-        resetCalculator(); 
+    if (firstNumber !== null && secondNumber !== null) {
+        const result = operaciones[operation](firstNumber, secondNumber);
+        printResult(result);
+        resetCalculator();
     } else {
-        console.log("selecciona dos números y una operación");
+        printResult("selecciona dos números y una operación");
     }
 });
 
@@ -69,6 +69,5 @@ const resetCalculator = () => {
     secondNumber = null; 
     operation = null; 
 };
-
 
 printNumbersCalc();
