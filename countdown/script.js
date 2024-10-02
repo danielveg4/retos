@@ -3,51 +3,56 @@ const hoursElement = document.getElementById('hours');
 const minutesElement = document.getElementById('minutes');
 const secondsElement = document.getElementById('seconds');
 
-let actualCounter = {
-    days: 8,
-    hours: 23,
-    minutes: 55,
-    seconds: 10
-}
-
-const printCountdown = () => {
-    daysElement.textContent = `${actualCounter.days} days`;
-    hoursElement.textContent = `${actualCounter.hours.toString().padStart(2, '0')} hours`;
-    minutesElement.textContent = `${actualCounter.minutes.toString().padStart(2, '0')} minutes`;
-    secondsElement.textContent = `${actualCounter.seconds.toString().padStart(2, '0')} seconds`;
-}
-
-const countdown = () => {
-    if (
-        actualCounter.days === 0 &&
-        actualCounter.hours === 0 &&
-        actualCounter.minutes === 0 &&
-        actualCounter.seconds === 0
-    ) {
-        console.log('se acabó!');
-        clearInterval(interval);
-        return;
+class CountdownTimer {
+    constructor(days, hours, minutes, seconds, onUpdate) {
+        this.days = days;
+        this.hours = hours;
+        this.minutes = minutes;
+        this.seconds = seconds;
+        this.onUpdate = onUpdate; 
     }
 
-    if (actualCounter.seconds > 0) {
-        actualCounter.seconds--;
-    } else if (actualCounter.minutes > 0) {
-        actualCounter.seconds = 59;
-        actualCounter.minutes--;
-    } else if (actualCounter.hours > 0) {
-        actualCounter.seconds = 59;
-        actualCounter.minutes = 59;
-        actualCounter.hours--;
-    } else if (actualCounter.days > 0) {
-        actualCounter.seconds = 59;
-        actualCounter.minutes = 59;
-        actualCounter.hours = 23;
-        actualCounter.days--;
+    tictac() {
+        if (this.days === 0 && this.hours === 0 && this.minutes === 0 && this.seconds === 0) {
+            clearInterval(this.interval);
+            console.log('¡Se acabó!');
+            return;
+        }
+
+        if (this.seconds > 0) {
+            this.seconds--;
+        } else if (this.minutes > 0) {
+            this.seconds = 59;
+            this.minutes--;
+        } else if (this.hours > 0) {
+            this.seconds = 59;
+            this.minutes = 59;
+            this.hours--;
+        } else if (this.days > 0) {
+            this.seconds = 59;
+            this.minutes = 59;
+            this.hours = 23;
+            this.days--;
+        }
+
+        this.onUpdate(this); 
     }
-    
-    printCountdown();
+
+    start() {
+        this.interval = setInterval(() => this.tictac(), 1000);
+        this.onUpdate(this);
+    }
 }
 
+const updateDOM = (counter) => {
+    daysElement.textContent = `${counter.days} days`;
+    hoursElement.textContent = `${counter.hours.toString().padStart(2, '0')} hours`;
+    minutesElement.textContent = `${counter.minutes.toString().padStart(2, '0')} minutes`;
+    secondsElement.textContent = `${counter.seconds.toString().padStart(2, '0')} seconds`;
+};
+
+const timer = new CountdownTimer(8, 23, 55, 10, updateDOM);
+
+timer.start();
 
 
-const interval = setInterval(countdown, 1000);
