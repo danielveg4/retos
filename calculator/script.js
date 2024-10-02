@@ -27,6 +27,7 @@ const printNumbersCalc = () => {
         fragment.append(newNumberTecla);
     }
     numbersElement.append(fragment);
+    resultElement.textContent = 0;
 }
 
 const selectNumber = (num) => {
@@ -42,6 +43,7 @@ const selectNumber = (num) => {
 const printResult = (result) => {
     resultElement.textContent = result;
     console.log(`resultado: ${result}`);
+
 };
 
 const operationButtons = [sumElement, restaElement, multiplicationElement, divisionElement];
