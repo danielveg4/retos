@@ -3,16 +3,21 @@ const hoursElement = document.getElementById('hours');
 const minutesElement = document.getElementById('minutes');
 const secondsElement = document.getElementById('seconds');
 
-class CountdownTimer {
-    constructor(days, hours, minutes, seconds, onUpdate) {
+class countdownTimer {
+
+    // objeto
+
+    constructor(days, hours, minutes, seconds, onUpdate) { //props y funcion
         this.days = days;
         this.hours = hours;
         this.minutes = minutes;
         this.seconds = seconds;
         this.onUpdate = onUpdate; 
-    }
+    } 
 
-    tictac() {
+    // metodo
+
+    countdown() {
         if (this.seconds > 0) {
             this.seconds--;
         } else if (this.minutes > 0) {
@@ -33,12 +38,14 @@ class CountdownTimer {
             return;
         }
 
-        this.onUpdate(this); 
+        this.onUpdate(this)
     }
 
-    start() {
-        this.interval = setInterval(() => this.tictac(), 1000);
-        this.onUpdate(this);
+    // funcion
+
+    startCountdown() {
+        this.interval = setInterval(() => this.countdown(), 1000)
+        this.onUpdate(this)
     }
 }
 
@@ -49,8 +56,8 @@ const updateDOM = (counter) => {
     secondsElement.textContent = `${counter.seconds.toString().padStart(2, '0')} seconds`;
 };
 
-const timer = new CountdownTimer(8, 23, 55, 10, updateDOM);
-
-timer.start();
+const timerIn = new countdownTimer(1, 1, 2, 10, updateDOM);
+const timerIn2 = new countdownTimer(4, 14, 43, 12, updateDOM);
+timerIn.startCountdown();
 
 
