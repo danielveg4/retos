@@ -15,7 +15,7 @@ class CountdownTimer {
     tictac() {
         if (this.days === 0 && this.hours === 0 && this.minutes === 0 && this.seconds === 0) {
             clearInterval(this.interval);
-            console.log('¡Se acabó!');
+            console.log('se acabóooo!');
             return;
         }
 
