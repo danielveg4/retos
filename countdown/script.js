@@ -5,7 +5,7 @@ const secondsElement = document.getElementById('seconds');
 
 class countdownTimer {
 
-    // objeto
+    // constructor para estructura/estado
 
     constructor(days, hours, minutes, seconds, onUpdate) { //props y funcion
         this.days = days;
