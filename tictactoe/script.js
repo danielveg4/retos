@@ -18,39 +18,47 @@ const gameRules = [
 let userPlay = [];
 let pcPlay = [];
 
+const reloadPage = () => {
+    console.log('reiniciando...');
+    location.reload();
+}
+
 const resetGame = () => {
     resetButtonContainerElement.classList.remove('hidden');
-    resetButtonElement.addEventListener('click', () => {
-        console.log('reiniciando...');
-        location.reload();
-    })
+    resetButtonElement.addEventListener('click', reloadPage)
 }
 
-const userWins = (userPlay) => {
-    if (gameRules.some(rule => rule.every(index => userPlay.includes(index)))) {
+const checkWinner = (player, playerMoves, message) => {
+    if (gameRules.some(rule => rule.every(index => playerMoves.includes(index)))) {
         boardElement.style.display = 'none';
-        winnerTextElement.textContent = 'USER WINS!';
+        winnerTextElement.textContent = message;
         statusElement.textContent = '';
-        resetGame(); 
+        resetGame();
     }
 }
 
-pcWins = (pcPlay) => {
-    if (gameRules.some(rule => rule.every(index => pcPlay.includes(index)))) {
+const checkForDraw = () => {
+    const allMoves = [...userPlay, ...pcPlay];
+    if (allMoves.length === 9) {
         boardElement.style.display = 'none';
-        winnerTextElement.textContent = 'PC WINS!';
-        statusElement.textContent = '';
-        resetGame()
+        winnerTextElement.textContent = 'Draw!';
+        resetGame();
     }
 }
+
+const userWins = () => checkWinner('user', userPlay, 'USER WINS!');
+const pcWins = () => checkWinner('pc', pcPlay, 'PC WINS!');
 
 const userMove = (event) => {
+    if (statusElement.textContent !== 'User turn') return;
+
     const playerCellIndex = Number(event.target.dataset.index);
     userPlay.push(playerCellIndex);
     event.target.textContent = 'X';
     statusElement.textContent = 'PC turn';
 
     userWins(userPlay);
+    checkForDraw();
 
     setTimeout(() => {
         pcMove();
@@ -58,14 +66,22 @@ const userMove = (event) => {
 }
 
 const pcMove = () => {
-    const randomNumber = Math.floor(Math.random() * boardElement.children.length);
-    if (boardElement.children[randomNumber].textContent === 'Y' || boardElement.children[randomNumber].textContent === 'X') return pcMove(); 
+    const emptyCells = Array.from(boardElement.children).filter(cell => 
+        cell.textContent !== 'Y' && cell.textContent !== 'X'
+    );
+    if (emptyCells.length === 0) return;
+
+    const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+    const randomNumber = Number(randomCell.dataset.index);
+
     pcPlay.push(randomNumber);
-    boardElement.children[randomNumber].textContent = 'Y';
+    randomCell.textContent = 'Y';
     statusElement.textContent = `User turn`;
 
-    pcWins(pcPlay);
-}
+    pcWins();
+    checkForDraw();
+};
+
 
 
 boardElement.addEventListener('click', (event) => {
