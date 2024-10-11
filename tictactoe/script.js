@@ -62,7 +62,7 @@ const pcMove = () => {
     if (boardElement.children[randomNumber].textContent === 'Y' || boardElement.children[randomNumber].textContent === 'X') return pcMove(); 
     pcPlay.push(randomNumber);
     boardElement.children[randomNumber].textContent = 'Y';
-    statusElement.textContent = `Player X's turn`;
+    statusElement.textContent = `User turn`;
 
     pcWins(pcPlay);
 }
