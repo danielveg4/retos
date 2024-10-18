@@ -2,6 +2,7 @@ const daysElement = document.getElementById('days');
 const hoursElement = document.getElementById('hours');
 const minutesElement = document.getElementById('minutes');
 const secondsElement = document.getElementById('seconds');
+const togleThemeButton = document.getElementById('button-dark-theme');
 
 class countdownTimer {
 
@@ -54,6 +55,10 @@ const updateDOM = (counter) => {
     minutesElement.textContent = `${counter.minutes.toString().padStart(2, '0')} minutes`;
     secondsElement.textContent = `${counter.seconds.toString().padStart(2, '0')} seconds`;
 };
+
+togleThemeButton.addEventListener('click', () => {
+    document.documentElement.classList.toggle('light-mode');
+});
 
 const timerIn = new countdownTimer(1, 1, 2, 10, updateDOM);
 const timerIn2 = new countdownTimer(4, 14, 43, 12, updateDOM);

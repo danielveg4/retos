@@ -1,3 +1,31 @@
-.title{
-    color: cadetblue;
+:root{
+    --background-body: darkslategray;
+    --text-color: aquamarine;
+}
+
+:root.light-mode {
+    --background-body: #fff;
+    --text-color: black;
+    --element-color: lightgray;
+}
+
+.body {
+    margin: 0;
+    padding: 2rem;
+    background-color: var(--background-body);
+    color: var(--text-color);
+}
+
+.title {
+    color: var(--text-color);
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.container__seconds {
+    text-decoration: line-through;
 }
